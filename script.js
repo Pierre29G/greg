@@ -1,37 +1,3 @@
-/*	
-                                   ___---___
-                             ___---___---___---___
-                       ___---___---    *    ---___---___
-                 ___---___---    o/ 0_/  @  o ^   ---___---___
-           ___---___--- @  i_e J-U /|  -+D O|-| (o) /   ---___---___
-     ___---___---    __/|  //\  /|  |\  /\  |\|  |_  __--oj   ---___---___
-__---___---_________________________________________________________---___---__
-===============================================================================
- ||||                                                                     ||||
- |---------------------------------------------------------------------------|
- |___-----___-----___-----___-----___-----___-----___-----___-----___-----___|
- / _ \===/ _ \   / _ \===/ _ \   / _ \===/ _ \   / _ \===/ _ \   / _ \===/ _ \
-( (.\ oOo /.) ) ( (.\ oOo /.) ) ( (.\ oOo /.) ) ( (.\ oOo /.) ) ( (.\ oOo /.) )
- \__/=====\__/   \__/=====\__/   \__/=====\__/   \__/=====\__/   \__/=====\__/
-    |||||||         |||||||         |||||||         |||||||         |||||||
-    |||||||         |||||||         |||||||         |||||||         |||||||
-    |||||||         |||||||         |||||||         |||||||         |||||||
-    |||||||         |||||||         |||||||         |||||||         |||||||
-    |||||||         |||||||         |||||||         |||||||         |||||||
-    |||||||         |||||||         |||||||         |||||||         |||||||
-    |||||||         |||||||         |||||||         |||||||         |||||||
-    |||||||         |||||||         |||||||         |||||||         |||||||
-    (oOoOo)         (oOoOo)         (oOoOo)         (oOoOo)         (oOoOo)
-    J%%%%%L         J%%%%%L         J%%%%%L         J%%%%%L         J%%%%%L
-   ZZZZZZZZZ       ZZZZZZZZZ       ZZZZZZZZZ       ZZZZZZZZZ       ZZZZZZZZZ
-  ===========================================================================
-__|_________________________________________________________________________|__
-_|___________________________________________________________________________|_
-|_____________________________________________________________________________|
-_______________________________________________________________________________
-*/
-
-
 document.addEventListener('DOMContentLoaded', function () {
 
     var deckid = null;
@@ -67,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
             night();
         });
 
+    // fonction utilisant l'API cards pour tirer les deux cartes du joueur
     //__________________________________________________________________________________________
 
     function night() {
@@ -87,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             });
     }
-
+    
+    //Rafraichit la main du joueur avec ses nouvelles cartes
     //__________________________________________________________________________________________
 
     function refreshHand() {
@@ -98,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    //fonction permettant d'interagir avec la main du joueur et le plateau
     //__________________________________________________________________________________________
 
     function placeHand() {
@@ -129,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    //bouge la carte de la main du joueur à la place choisi sur le plateau
     //__________________________________________________________________________________________
 
     function moveCard(target) {
@@ -141,25 +111,21 @@ document.addEventListener('DOMContentLoaded', function () {
         event.target.classList.add("full");
     }
 
+    //fonction relié au bouton "Go" et qui permet d'activer les actions liées à Greg et au tour de jeu
     //__________________________________________________________________________________________
 
     function go() {
         document.getElementById('GO').addEventListener('click', function (event) {
             event.target.classList.remove("active");
             document.getElementById('interface').classList.add("deactivate");
-            day();
+            gregnight();
             event.target.classList.add("active");
             document.getElementById('interface').classList.remove("deactivate");
             night();
         });
     }
 
-    //__________________________________________________________________________________________
-
-    function day() {
-        gregnight();
-    }
-
+    //fonction utilisant l'API pour récuperer les deux cartes de Greg
     //__________________________________________________________________________________________
 
     function gregnight() {
@@ -182,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
+    //place aléatoirement les deux cartes de Greg sur le terrain... Oui, Greg est une fonction math.random...
     //__________________________________________________________________________________________
 
     function gregplace() {
@@ -210,7 +177,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         setTimeout(calculate(), 2000);
     }
-
+    
+    //calcul la valeur de chaque rang et appelle checkdestroy sur le rang concerné
     //__________________________________________________________________________________________
 
     function calculate() {
@@ -261,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(gregmove(), 1000);
     }
 
+    //applique destroy sur toutes les cartes d'un rang et d'un joueur précis
     //__________________________________________________________________________________________
 
     function checkdestroy(yourtotal, gregtotal, line) {
@@ -296,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    //détruis une carte à un emplacement précis
     //__________________________________________________________________________________________
 
     function destroy(cardpos, side) {
@@ -311,6 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return done;
     }
 
+    //return la valeur d'une carte selon sa classe
     //__________________________________________________________________________________________
 
     function cardcost(classimg) {
@@ -343,7 +314,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         return cost;
     }
-
+    
+    //déplace les cartes de Greg, le fait avant le déplacement du joueur parce que la vie est injuste
     //__________________________________________________________________________________________
 
     function gregmove() {
@@ -382,7 +354,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         move();
     }
-
+    
+    //déplace les cartes du joueur
     //__________________________________________________________________________________________
 
     function move() {
@@ -425,6 +398,7 @@ document.addEventListener('DOMContentLoaded', function () {
         checkwin();
     }
 
+    //vérifie si un joueur à gagné
     //__________________________________________________________________________________________
 
     function checkwin() {
